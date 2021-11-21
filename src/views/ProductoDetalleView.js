@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CarritoContext } from "../context/carritoContext";
 import { useParams } from "react-router";
 import { obtenerProductoPorId } from "../service/productoService";
 import ReactImageMagnify from "react-image-magnify";
@@ -8,6 +9,8 @@ export default function ProductoDetalleView() {
   const [cantidad, setCantidad] = useState(1);
 
   const { id } = useParams(); //un objeto con todos los parametros de la URL
+
+  const { anadiACarrito } = useContext(CarritoContext);
 
   const getProducto = async () => {
     try {
@@ -23,6 +26,20 @@ export default function ProductoDetalleView() {
       return; //corta la ejecución
     }
     setCantidad(cantidad + numero);
+  };
+
+  const anadirACarritoContext = () => {
+    const { id, nombre, precio } = producto;
+    // const nuevoProducto = {
+    //   id:id
+    // }
+    const nuevoProducto = {
+      id,
+      nombre,
+      precio,
+      cantidad,
+    };
+    anadiACarrito(nuevoProducto);
   };
 
   useEffect(() => {
