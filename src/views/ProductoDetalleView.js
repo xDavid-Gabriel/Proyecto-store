@@ -10,7 +10,7 @@ export default function ProductoDetalleView() {
 
   const { id } = useParams(); //un objeto con todos los parametros de la URL
 
-  const { anadiACarrito } = useContext(CarritoContext);
+  const { anadirACarrito } = useContext(CarritoContext);
 
   const getProducto = async () => {
     try {
@@ -39,7 +39,7 @@ export default function ProductoDetalleView() {
       precio,
       cantidad,
     };
-    anadiACarrito(nuevoProducto);
+    anadirACarrito(nuevoProducto);
   };
 
   useEffect(() => {
@@ -99,7 +99,10 @@ export default function ProductoDetalleView() {
                   <i className="fas fa-plus"></i>
                 </button>
 
-                <button className="btn btn-outline-dark ms-3">
+                <button
+                  className="btn btn-outline-dark ms-3"
+                  onClick={anadirACarritoContext}
+                >
                   <i className="fas fa-cart-plus"></i> Añadir a carrito
                 </button>
               </div>
