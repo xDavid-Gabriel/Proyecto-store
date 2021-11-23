@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from "./context/authContext";
 import CarritoContextProvider from "./context/carritoContext";
@@ -31,10 +32,16 @@ export default function App() {
             />
             <Route path="/carrito" element={<CarritoView />} />
 
-            <Route
-              path="/productosfiltros"
-              element={<ProductoConFiltroView />}
-            />
+            <Route path="/productosfiltros">
+              <Route
+                path="/productosfiltros"
+                element={<ProductoConFiltroView />}
+              />
+              <Route
+                path="/productosfiltros/:busqueda"
+                element={<ProductoConFiltroView />}
+              />
+            </Route>
             {/* Rutas privadas */}
             <Route
               path="/checkout"

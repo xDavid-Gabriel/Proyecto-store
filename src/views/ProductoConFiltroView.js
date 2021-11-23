@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import Slider from "@mui/material/Slider";
-import { obtenerProductosPorPagina } from "../service/productoService";
+import { useParams } from "react-router";
+import {
+  obtenerProductosPorPagina,
+  obtenerProductos,
+} from "../service/productoService";
 import { obtenerCategorias } from "../service/categoriaService";
 import ProductoCard from "../components/ProductoCard";
 
@@ -12,9 +16,18 @@ export default function ProductoConFiltroView() {
   const [limite, setLimite] = useState(20);
   const [precio, setPrecio] = useState([0, 500]);
 
+  const { busqueda } = useParams();
+  // console.log(busqueda);
+
   const getData = async () => {
     try {
-      const prodObtenidos = await obtenerProductosPorPagina(pagina, limite);
+      let prodObtenidos;
+      if (typeof busqueda === "undefined") {
+        prodObtenidos = await obtenerProductosPorPagina(pagina, limite);
+      } else {
+        prodObtenidos = await obtenerProductos(busqueda);
+      }
+
       const catObtenidad = await obtenerCategorias();
 
       setProductos(prodObtenidos);
@@ -35,6 +48,11 @@ export default function ProductoConFiltroView() {
 
   const manejarFiltroPrecio = (evento, nuevoRango) => {
     setPrecio(nuevoRango);
+
+    const productoPorPrecio = productosOriginal.filter((prod) => {
+      return prod.precio >= precio[0] && prod.precio <= precio[1];
+    });
+    setProductos(productoPorPrecio);
   };
 
   useEffect(() => {
