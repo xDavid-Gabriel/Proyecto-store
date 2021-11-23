@@ -5,7 +5,7 @@ const URL = `${process.env.REACT_APP_API}categorias`; //equivale a obtener las c
 //buscar todos o filtrar
 const obtenerCategorias = async () => {
   try {
-    let { data } = await axios.get(`${URL}`);
+    let { data } = await axios.get(URL);
     return data;
   } catch (error) {
     throw error;

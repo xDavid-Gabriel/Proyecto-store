@@ -11,6 +11,7 @@ import Navegacion from "./components/Navegacion";
 import ProductoDetalleView from "./views/ProductoDetalleView";
 import CarritoView from "./views/CarritoView";
 import NotFound from "./views/NotFound";
+import ProductoConFiltroView from "./views/ProductoConFiltroView";
 
 export default function App() {
   return (
@@ -29,6 +30,12 @@ export default function App() {
               element={<ProductoDetalleView />}
             />
             <Route path="/carrito" element={<CarritoView />} />
+
+            <Route
+              path="/productosfiltros"
+              element={<ProductoConFiltroView />}
+            />
+            {/* Rutas privadas */}
             <Route
               path="/checkout"
               element={
